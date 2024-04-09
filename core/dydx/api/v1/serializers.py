@@ -42,6 +42,7 @@ class HistoryTradesSerializer(ModelSerializer):
             "liquidity",
             "created_date",
             "updated_date",
+            'creation_time'
         ]
     
 class HistoryTransferSerializer(ModelSerializer):
@@ -60,6 +61,7 @@ class HistoryTransferSerializer(ModelSerializer):
             "fee",
             "created_date",
             "updated_date",
+            'creation_time'
         ]
 
 
@@ -84,6 +86,7 @@ class HistoryFundingSerializer(ModelSerializer):
             "position_asset",
             "created_date",
             "updated_date",
+            'creation_time'
         ]
 
 
