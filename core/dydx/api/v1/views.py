@@ -9,6 +9,8 @@ from .serializers import (PositionSerializer,
                         )
 import yfinance as yf
 from rest_framework.response import Response
+import datetime
+
 
 class PositionsView(ListAPIView):
 
@@ -19,7 +21,7 @@ class PositionsView(ListAPIView):
 
     def get_queryset(self):
 
-        queryset = Positions.objects.filter(user=self.request.user)
+        queryset = Positions.objects.filter(user=self.request.user).order_by('-created_date')
 
         return queryset
     
@@ -107,10 +109,27 @@ class HistoryTradesView(ListAPIView):
 
     def get_queryset(self):
 
-        queryset = HistoryTrades.objects.filter(user=self.request.user)
+        queryset = HistoryTrades.objects.filter(user=self.request.user).order_by('-created_date')
 
         return queryset
-
+    
+    def list(self, request, *args, **kwargs):
+        res = super().list(request, *args, **kwargs)
+        data = list(res.data)
+        now = datetime.datetime.now().date()
+        for trade in data:
+            creation_time = datetime.datetime.strptime(trade['creation_time'], "%Y-%m-%d").date()
+            diff = (now-creation_time).days
+            if diff<1:
+                trade['time'] = f'1d'
+            elif diff<7:
+                trade['time'] = f'{diff}d'
+            elif diff<700:
+                trade['time'] = f'{int(diff/7)}w'
+            else:
+                trade['time'] = f'{int(diff/30)}M'
+        # print(data)
+        return Response(data)
 
 class HistoryTransferView(ListAPIView):
 
@@ -121,9 +140,27 @@ class HistoryTransferView(ListAPIView):
 
     def get_queryset(self):
 
-        queryset = HistoryTransfers.objects.filter(user=self.request.user)
+        queryset = HistoryTransfers.objects.filter(user=self.request.user).order_by('-created_date')
 
         return queryset
+    
+    def list(self, request, *args, **kwargs):
+        res = super().list(request, *args, **kwargs)
+        data = list(res.data)
+        now = datetime.datetime.now().date()
+        for trade in data:
+            creation_time = datetime.datetime.strptime(trade['creation_time'], "%Y-%m-%d").date()
+            diff = (now-creation_time).days
+            if diff<1:
+                trade['time'] = f'1d'
+            elif diff<7:
+                trade['time'] = f'{diff}d'
+            elif diff<700:
+                trade['time'] = f'{int(diff/7)}w'
+            else:
+                trade['time'] = f'{int(diff/30)}M'
+        # print(data)
+        return Response(data)
 
 
 class HistoryFundingView(ListAPIView):
@@ -135,9 +172,27 @@ class HistoryFundingView(ListAPIView):
 
     def get_queryset(self):
 
-        queryset = HistoryFunding.objects.filter(user=self.request.user)
+        queryset = HistoryFunding.objects.filter(user=self.request.user).order_by('-created_date')
 
         return queryset
+    
+    def list(self, request, *args, **kwargs):
+        res = super().list(request, *args, **kwargs)
+        data = list(res.data)
+        now = datetime.datetime.now().date()
+        for trade in data:
+            creation_time = datetime.datetime.strptime(trade['creation_time'], "%Y-%m-%d").date()
+            diff = (now-creation_time).days
+            if diff<1:
+                trade['time'] = f'1d'
+            elif diff<7:
+                trade['time'] = f'{diff}d'
+            elif diff<700:
+                trade['time'] = f'{int(diff/7)}w'
+            else:
+                trade['time'] = f'{int(diff/30)}M'
+        # print(data)
+        return Response(data)
 
 
     
