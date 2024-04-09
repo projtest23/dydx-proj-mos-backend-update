@@ -46,6 +46,7 @@ class HistoryTrades(models.Model):
     liquidity = models.CharField(max_length=256,choices=LIQUIDITY_CHOICES)
     created_date = models.DateTimeField(auto_now=True)
     updated_date = models.DateTimeField(auto_now=True)
+    creation_time = models.DateField(null=True)
 
 
 class HistoryTransfers(models.Model):
@@ -59,6 +60,7 @@ class HistoryTransfers(models.Model):
     fee = models.CharField(max_length=256,default='-')
     created_date = models.DateTimeField(auto_now=True)
     updated_date = models.DateTimeField(auto_now=True)
+    creation_time = models.DateField(null=True)
 
 
 class HistoryFunding(models.Model):
@@ -72,3 +74,4 @@ class HistoryFunding(models.Model):
     position_asset = models.CharField(max_length=256,default='ETH')
     created_date = models.DateTimeField(auto_now=True)
     updated_date = models.DateTimeField(auto_now=True)
+    creation_time = models.DateField(null=True)
