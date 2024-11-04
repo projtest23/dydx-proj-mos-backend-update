@@ -23,6 +23,7 @@ class Balance(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     uniswap = models.BooleanField(default=True)
     wallet_address = models.CharField(max_length=500,null=True)
+    balance_available = models.FloatField(null=True,blank=True)
 
 
 class HistoryTrades(models.Model):
