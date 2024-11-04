@@ -39,6 +39,7 @@ class PositionsView(ListAPIView):
 
         balancedata=balancedata[0]
         balance = balancedata.balance
+        balance_available = balancedata.balance_available
         uniswap = balancedata.uniswap
         wallet = balancedata.wallet_address
         account_leverage = balancedata.account_leverage
@@ -49,6 +50,7 @@ class PositionsView(ListAPIView):
             data_dict = {}
             data_dict['margin_usage'] = 0
             data_dict['balance'] = balance
+            data_dict['balance_available'] = balance_available
             data_dict['uniswap'] = uniswap
             data_dict['wallet'] = wallet
             data_dict['account_leverage'] = account_leverage
@@ -92,6 +94,7 @@ class PositionsView(ListAPIView):
             pos['equity'] = round((balance + up_total),2) 
             pos['margin_usage'] = round(((size_d_total/account_leverage)*100/balance),2)
             pos['balance'] = balance
+            pos['balance_available'] = balance_available
             pos['account_leverage'] = account_leverage
             pos['uniswap'] = uniswap
             pos['wallet'] = wallet
