@@ -14,6 +14,7 @@ class PositionSerializer(ModelSerializer):
             "leverage",
             "realized_PL",
             "average_open",
+            "margin_used",
             "created_date",
             "updated_date",
         ]
