@@ -10,6 +10,7 @@ class Positions(models.Model):
     leverage = models.FloatField()
     realized_PL = models.FloatField()
     average_open = models.FloatField()
+    margin_used = models.FloatField(default=0)
     created_date = models.DateTimeField(auto_now=True)
     updated_date = models.DateTimeField(auto_now=True)
     
